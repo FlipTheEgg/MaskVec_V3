@@ -19,6 +19,7 @@ LUTi lut;
 String mask;
 int iterations;
 int sortType;
+Comparison_i c;
 
 // CONSTRUCTORS:
 
@@ -26,7 +27,7 @@ int sortType;
 Method() {
         this.lut = getRandomLUT();
         this.mask = getRandomMask();
-        //TODO: Random sort
+        this.c = getRandomComparison();
 }
 
 // Perhaps a builder would be good for this?
@@ -69,7 +70,7 @@ private PImage sortImage(PImage img) {
                 pixelB &= mask;
 
                 // Replace with conditional type
-                if (pixelA > pixelB) {
+                if (this.c.compare(pixelA, pixelB)) {
                         result.pixels[iA] &= ~mask;
                         result.pixels[iA] |= pixelB;
 
@@ -83,20 +84,20 @@ private PImage sortImage(PImage img) {
 // Perhaps this belongs in LUT?
 // The logic is, that this function needs to know how many different LUTs there are...
 private LUTi getRandomLUT() {
-
-        // Count the choices manually!
+        // TODO: Hardcoded bad
         int numberOfLUTs = 2;
 
         int choice = int(random(numberOfLUTs));
         LUTi selectedLUT;
 
-        if (choice == 0) selectedLUT = new VectorLUT();
-        if (choice == 1) selectedLUT = new PolarLUT();
-        else selectedLUT = new VectorLUT();
-
-        println(selectedLUT);
-
-        return selectedLUT;
+        switch(choice) {
+                case 0:
+                        return new VectorLUT();
+                case 1:
+                        return new PolarLUT();
+                default:
+                        return new VectorLUT();
+        }
 }
 
 private String getRandomMask() {
@@ -119,13 +120,31 @@ private String getRandomMask() {
         return masks.get(choice);
 }
 
+private Comparison_i getRandomComparison(){
+        // TODO: Hardcoded bad!
+        int numberOfComparisons = 3;
+
+        int choice = int(random(numberOfComparisons));
+        switch(choice){
+            case 0:
+                return new Comparison();
+            case 1:
+                return new OnesComparison();
+            case 2:
+                return new BrightnessComparison();
+            default:
+                return new Comparison();
+        }
+}
+
 public String toString() {
 
         // For recreating patterns when using random params.
         String output = "";
         output += "Method: ";
-        output += ", mask: " + this.mask;
+        output += "mask: " + this.mask;
         output += ", " + this.lut;
+        output += ", " + this.c;
 
         return output;
 }

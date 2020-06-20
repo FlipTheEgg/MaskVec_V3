@@ -112,54 +112,6 @@ void keyPressed() {
         }
 }
 
-// UNUSED COMPARISON FUNCTIONS (For future functionality)
-
-// Is A > B?
-boolean maskCompare(int A, int B, String maskString) {
-        int mask = unhex(maskString);
-
-        A &= mask;
-        B &= mask;
-
-        if (A > B) return true;
-        return false;
-}
-
-// Does A contain more ones than B?
-boolean onesCompare(int A, int B) {
-
-        int onesA = countSetBits(A);
-        int onesB = countSetBits(B);
-
-        if (onesA > onesB) return true;
-
-        return false;
-}
-
-// Helper function of onesCompare
-int countSetBits(int n) {
-        if (n == 0) return 0;
-        else return 1 + countSetBits(n & (n-1));
-}
-
-// Is A brighter than B? (r+g+b)
-boolean brightCompare(int A, int B) {
-
-        int redA = (A >> 16) & 0xFF;
-        int greenA = (A >> 8) & 0xFF;
-        int blueA = (A >> 0) & 0xFF;
-        int brightnessA = redA + greenA + blueA;
-
-        int redB = (B >> 16) & 0xFF;
-        int greenB = (B >> 8) & 0xFF;
-        int blueB = (B >> 0) & 0xFF;
-        int brightnessB = redB + greenB + blueB;
-
-        if (brightnessA > brightnessB) return true;
-
-        return false;
-}
-
 void saveImage() {
         String savePath = sketchPath() + "/captures/";
         img.save(savePath + saveIndex++ + ".png");
