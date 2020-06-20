@@ -2,10 +2,7 @@ PImage img;
 boolean running;
 boolean runOnlyOnce;
 boolean fileIsSelected;
-int iterations;
 String filePath;
-int xOffset;
-int yOffset;
 int saveIndex;
 
 ArrayList<Method> methods = new ArrayList<Method>();
@@ -26,12 +23,7 @@ void setup() {
          */
         // ^^ METHODS ABOVE ^^
 
-        // PolarLUT virker ikke, og jeg ved ikke hvorfor...
-        // På linje 135 og 136 i filen LUT er der to udkommenterede
-
-        for (int i = 0; i < methods.size(); i++) {
-                println(methods.get(i));
-        }
+        for(Method m : methods) println(m);
 
         // Jeg ved godt det er et shitty hack.
         saveIndex = int(random(0, 99999999));
@@ -40,7 +32,6 @@ void setup() {
         surface.setResizable(true);
         running = false;
         runOnlyOnce = false;
-        iterations = 1;
 }
 
 void draw() {
