@@ -11,7 +11,6 @@ int saveIndex;
 ArrayList<Method> methods = new ArrayList<Method>();
 
 void setup() {
-
         fileIsSelected = false;
         // Selectinput opens a file selection dialogue, then calls the function fileSelected().
         selectInput("Select image file:", "fileSelected");
@@ -19,9 +18,7 @@ void setup() {
         // vv ADD YOUR METHODS HERE vv
 
         methods.add(new Method());
-
-        methods.get(0).lut = new PolarLUT(25, 0.1, 0, 0);
-        methods.get(0).mask = "FFFF00FF";
+        methods.add(new Method());
         /*
            methods.get(1).lut = new VectorLUT(1,0);
            methods.get(1).mask = "FF00FFFF";
@@ -47,7 +44,6 @@ void setup() {
 
 void draw() {
         if (fileIsSelected) {
-
                 background(0);
                 image(img, 0, 0);
 
