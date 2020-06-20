@@ -19,6 +19,7 @@ void setup() {
 
         methods.add(new Method());
         methods.add(new Method());
+        methods.add(new Method());
         /*
            methods.get(1).lut = new VectorLUT(1,0);
            methods.get(1).mask = "FF00FFFF";

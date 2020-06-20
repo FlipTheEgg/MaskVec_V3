@@ -56,7 +56,7 @@ Cartesian PolarToCartesian(Polar c, Cartesian offset) {
 Polar CartesianToPolar(Cartesian c, Cartesian offset) {
         Polar result = new Polar();
         int x = c.x - offset.x;
-        int y = c.x - offset.y;
+        int y = c.y - offset.y;
         result.radius = sqrt((x * x) + (y * y));
         result.angle = atan2(y, x);
         return result;
