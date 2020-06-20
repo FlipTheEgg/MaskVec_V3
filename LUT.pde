@@ -131,8 +131,6 @@ public void generate(PImage img) {
                 B_c = GetCoordinateInBounds_bounce(img, B_c);
 
                 this.data[i] = CartesianToIndex(img, B_c);
-                //println("i: " + i); // De her print beviser, at der i arrayet er valide værdier.
-                //println("d: " + data[i]); // Hvorfor fuck virker det så ikke?
         }
         this.generated = true;
         setInfoString();
