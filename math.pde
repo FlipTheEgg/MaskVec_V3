@@ -15,6 +15,12 @@ Cartesian() {
         this.y = 0;
 }
 
+public void swap() {
+        int temp = this.x;
+        this.x = this.y;
+        this.y = temo;
+}
+
 public String toString() {
         return "(" + x + ", " + y + ")";
 }
@@ -76,10 +82,6 @@ Cartesian GetCoordinateInBounds_wrap(PImage img, Cartesian c) {
         else result.y = c.y;
 
         return result;
-}
-
-Cartesian Cswap(Cartesian c) {
-    return new Cartesian(c.y, c.x);
 }
 
 Cartesian GetCoordinateInBounds_bounce(PImage img, Cartesian c) {
