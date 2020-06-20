@@ -35,20 +35,19 @@ void setup() {
 }
 
 void draw() {
-        if (fileIsSelected) {
-                background(0);
-                image(img, 0, 0);
+        if (fileIsSelected == false) return;
+        background(0);
+        image(img, 0, 0);
 
-                if (running) {
-                        for (Method method : methods) {
-                                method.activate(img);
-                        }
-                        // Necessary, updates the image
-                        img.updatePixels();
-                        if (runOnlyOnce) {
-                                running = false;
-                                runOnlyOnce = false;
-                        }
+        if (running) {
+                for (Method method : methods) {
+                        method.activate(img);
+                }
+                // Necessary, updates the image
+                img.updatePixels();
+                if (runOnlyOnce) {
+                        running = false;
+                        runOnlyOnce = false;
                 }
         }
 }
@@ -56,6 +55,8 @@ void draw() {
 void fileSelected(File selection) {
         if (selection == null) {
                 println("Window was closed or the user hit cancel.");
+                println("exiting - goodbye!");
+                exit();
         } else {
                 println("File selected: \"" + selection.getAbsolutePath() + "\"");
                 filePath = selection.getPath();
@@ -66,7 +67,6 @@ void fileSelected(File selection) {
                         surface.setSize(img.width, img.height);
 
                         for (Method m : methods) {
-                                println("generating!");
                                 m.generate(img);
                                 println(m);
                         }
