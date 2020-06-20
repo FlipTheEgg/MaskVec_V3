@@ -37,7 +37,6 @@ VectorLUT() {
 // Constructor 2 - set variables.
 VectorLUT(int vecX, int vecY) {
         this.vec = new Cartesian(vecX, vecY);
-        setInfoString();
 }
 
 public String toString() {
