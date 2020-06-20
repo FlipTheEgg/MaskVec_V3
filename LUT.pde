@@ -2,12 +2,6 @@
 // A LUT is a table of alternative index values for the pixels of a given image.
 // the constructor sets the values, and generate() makes a table based on a specific image.
 
-
-//interface iLUT
-// hvad skal alle LUT kunne udefra?
-// gen skal op i interfacet
-// vectorlut im
-
 interface LUTi {
 public void generate(PImage img);
 public int[] getData();
@@ -16,7 +10,6 @@ public void setData(int[] data);
 
 class LUTbase {
 protected int[] data;
-protected String infoString;
 protected boolean generated = false;
 
 public int[] getData() {
@@ -28,7 +21,7 @@ public void setData(int[] data) {
 }
 
 public String toString() {
-        return infoString;
+        return "LUTbase";
 }
 }
 
@@ -47,8 +40,10 @@ VectorLUT(int vecX, int vecY) {
         setInfoString();
 }
 
-private void setInfoString() {
-        this.infoString = "VectorLUT" + this.vec + ", " + generated;
+public String toString() {
+    String out = "VectorLUT" + this.vec;
+    if(!generated) out += ", not generated";
+    return out;
 }
 
 public void generate(PImage img) {
@@ -69,7 +64,6 @@ public void generate(PImage img) {
                 this.data[i] = CartesianToIndex(img, B);
         }
         this.generated = true;
-        setInfoString();
 }   // end generate
 } // end class VectorLUT
 
@@ -102,9 +96,12 @@ PolarLUT(float radius, float angle, float xOffsetRatio, float yOffsetRatio) {
         this.yOffsetRatio = abs(yOffsetRatio % 1);
 }
 
-private void setInfoString() {
-        String offsetString = "offset(" + this.xOffsetRatio + ", " + this.yOffsetRatio + ")";
-        this.infoString = "PolarLUT" + this.vec + ", " + offsetString + ", " + generated;
+public String toString() {
+    String out = "";
+    out += "PolarLUT(" + nf(this.vec.radius, 0, 3) + ", " + nf(this.vec.angle, 0, 3) + "), ";
+    out += "offset(" + nf(this.xOffsetRatio, 0, 3) + ", " + nf(this.yOffsetRatio, 0, 3) + ")";
+    if(!generated) out += ", not generated";
+    return out;
 }
 
 public void generate(PImage img) {
@@ -133,6 +130,5 @@ public void generate(PImage img) {
                 this.data[i] = CartesianToIndex(img, B_c);
         }
         this.generated = true;
-        setInfoString();
 }   //end generate
 } //end class PolarLUT
