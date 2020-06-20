@@ -78,6 +78,10 @@ Cartesian GetCoordinateInBounds_wrap(PImage img, Cartesian c) {
         return result;
 }
 
+Cartesian Cswap(Cartesian c) {
+    return new Cartesian(c.y, c.x);
+}
+
 Cartesian GetCoordinateInBounds_bounce(PImage img, Cartesian c) {
         Cartesian result = new Cartesian();
         int xmax = img.width - 1;
