@@ -16,19 +16,24 @@ public String toString(){
 
 class OnesComparison implements Comparison_i {
 // Does A contain more ones than B?
-public boolean compare(int a, int b) {
+int num_to_bits[16] = (0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4);
 
-        int onesA = countSetBits(a);
-        int onesB = countSetBits(b);
+public boolean compare(int a, int b) {
+        // Solution from https://www.geeksforgeeks.org/count-set-bits-in-an-integer/
+        int onesA = countSetBitsRec(a);
+        int onesB = countSetBitsRec(b);
 
         if (onesA > onesB) return true;
         else return false;
 }
+private int countSetBitsRec(int num) {
+    int nibble = 0;
+    if (num == 0) return num_to_bits[0];
 
-private int countSetBits(int n) {
-        if (n == 0) return 0;
-        else return 1 + countSetBits(n & (n-1));
+    niblle = num & 0xF;
+    return num_to_bits[nibble] + countSetBitsRec(num >> 4);
 }
+
 public String toString(){
     return("OnesComparison");
 }
