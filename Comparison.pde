@@ -16,7 +16,7 @@ public String toString(){
 
 class OnesComparison implements Comparison_i {
 // Does A contain more ones than B?
-int num_to_bits[16] = (0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4);
+int num_to_bits[] = {0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4};
 
 public boolean compare(int a, int b) {
         // Solution from https://www.geeksforgeeks.org/count-set-bits-in-an-integer/
@@ -26,12 +26,15 @@ public boolean compare(int a, int b) {
         if (onesA > onesB) return true;
         else return false;
 }
-private int countSetBitsRec(int num) {
+private int countSetBitsRec(int num) {
+    int result = 0;
     int nibble = 0;
-    if (num == 0) return num_to_bits[0];
 
-    niblle = num & 0xF;
-    return num_to_bits[nibble] + countSetBitsRec(num >> 4);
+    for(int i = 0; i<6; i++){
+        nibble = (num & 0x00F) >> (i * 4);
+        result += num_to_bits[nibble];
+    }
+    return result;
 }
 
 public String toString(){
