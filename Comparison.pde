@@ -3,6 +3,7 @@ interface Comparison_i {
 }
 
 class Comparison implements Comparison_i{
+// Is A larger than B, numerically
 public boolean compare(int a, int b) {
         if (a > b) return true;
         else return false;
