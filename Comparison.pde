@@ -16,10 +16,11 @@ public String toString(){
 
 class OnesComparison implements Comparison_i {
 // Does A contain more ones than B?
+// Solution modified from https://www.geeksforgeeks.org/count-set-bits-in-an-integer/
+
 int num_to_bits[] = {0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4};
 
 public boolean compare(int a, int b) {
-        // Solution from https://www.geeksforgeeks.org/count-set-bits-in-an-integer/
         int onesA = countSetBitsRec(a);
         int onesB = countSetBitsRec(b);
 
@@ -30,8 +31,9 @@ private int countSetBitsRec(int num) {
     int result = 0;
     int nibble = 0;
 
+    // Heavily assumes that the color is represented in 3 byte (6 nibbles)
     for(int i = 0; i<6; i++){
-        nibble = (num & 0x00F) >> (i * 4);
+        nibble = 0x0F & (num >> (i * 4));
         result += num_to_bits[nibble];
     }
     return result;
