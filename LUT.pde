@@ -157,19 +157,19 @@ class RandomVectorLUT extends LUTbase implements LUTi {
 
     private int getRandomInRange(Cartesian range){
         // corrects for if lower > upper, and for the rounding of casting random to int.
-        int lower, higher;
+        int lower, upper;
 
-        if range.x > range.y{
+        if (range.x > range.y){
             lower = range.y;
             upper = range.x + 1;
-        } else {
+        } else {
             lower = range.x;
             upper = range.y + 1;
         }
 
         if(lower < 0) lower -= 1;
 
-        return int(random(lower, higher));
+        return int(random(lower, upper));
     }
 
     public void generate(PImage img) {
