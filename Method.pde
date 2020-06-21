@@ -146,8 +146,9 @@ public String toString() {
         // For recreating patterns when using random params.
         String output = "";
         output += "Method: ";
-        output += "mask: " + this.mask;
-        output += ", " + this.lut;
+
+        output += this.lut;
+        output += ", " + this.mask;
         output += ", " + this.c;
 
         return output;
