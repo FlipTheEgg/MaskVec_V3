@@ -20,6 +20,7 @@ String mask;
 int iterations;
 int sortType;
 Comparison_i c;
+boolean reverse;
 
 // CONSTRUCTORS:
 
@@ -28,6 +29,7 @@ Method() {
         this.lut = getRandomLUT();
         this.mask = getRandomMask();
         this.c = getRandomComparison();
+        this.reverse = getRandomBool();
 }
 
 // Perhaps a builder would be good for this?
@@ -46,39 +48,40 @@ public PImage activate(PImage img) {
 private PImage sortImage(PImage img) {
         PImage result = img;
 
-        // TODO: make a sort based on this.sortType
-
-        int mask = unhex(this.mask);
-
-        int pixelA;
-        int pixelB;
-
         int w = img.width;
         int h = img.height;
+        int mask = unhex(this.mask);
 
-        //Go through the image pixel by pixel
-        // TODO: Decide whether to get the original values from img or from result.
-        // Right now it's from result, BC this is non-destructive.
-        for (int i=0; i<(h*w); i++) {
-                int iA = i;
-                int iB = this.lut.getData()[i];
-
-                pixelA = result.pixels[iA];
-                pixelB = result.pixels[iB];
-
-                pixelA &= mask;
-                pixelB &= mask;
-
-                // Replace with conditional type
-                if (this.c.compare(pixelA, pixelB)) {
-                        result.pixels[iA] &= ~mask;
-                        result.pixels[iA] |= pixelB;
-
-                        result.pixels[iB] &= ~mask;
-                        result.pixels[iB] |= pixelA;
-                }
+        if(reverse){
+            for (int i=(h*w)-1; i>=0; i--){
+                sortPixel(img, i, mask);
+            }
+        } else {
+            for (int i=0; i<(h*w); i++) {
+                sortPixel(img, i, mask);
+            }
         }
         return result;
+}
+private void sortPixel(PImage img, int i, int mask){
+    int pixelA, pixelB;
+
+    int iA = i;
+    int iB = this.lut.getData()[i];
+
+    pixelA = img.pixels[iA];
+    pixelB = img.pixels[iB];
+
+    pixelA &= mask;
+    pixelB &= mask;
+
+    if (this.c.compare(pixelA, pixelB)) {
+            img.pixels[iA] &= ~mask;
+            img.pixels[iA] |= pixelB;
+
+            img.pixels[iB] &= ~mask;
+            img.pixels[iB] |= pixelA;
+    }
 }
 
 // Perhaps this belongs in LUT?
@@ -141,12 +144,19 @@ private Comparison_i getRandomComparison(){
         }
 }
 
+private boolean getRandomBool(){
+    int x = int(random(2));
+    if(x == 1) return true;
+    else return false;
+}
+
 public String toString() {
 
         // For recreating patterns when using random params.
         String output = "";
         output += "Method: ";
 
+        if(this.reverse) output += "r";
         output += this.lut;
         output += ", " + this.mask;
         output += ", " + this.c;
