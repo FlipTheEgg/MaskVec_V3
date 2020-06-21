@@ -18,12 +18,19 @@ Cartesian() {
 public void swap() {
         int temp = this.x;
         this.x = this.y;
-        this.y = temo;
+        this.y = temp;
 }
 
 public String toString() {
         return "(" + x + ", " + y + ")";
 }
+public Cartesian add(Cartesian that){
+    Cartesian result = new Cartesian();
+    result.x = this.x + that.x;
+    result.y = this.y + that.y;
+    return result;
+}
+
 } // end class Cartesian
 
 class Polar {

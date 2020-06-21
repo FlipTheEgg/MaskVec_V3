@@ -85,7 +85,7 @@ private PImage sortImage(PImage img) {
 // The logic is, that this function needs to know how many different LUTs there are...
 private LUTi getRandomLUT() {
         // TODO: Hardcoded bad
-        int numberOfLUTs = 2;
+        int numberOfLUTs = 3;
 
         int choice = int(random(numberOfLUTs));
         LUTi selectedLUT;
@@ -95,7 +95,11 @@ private LUTi getRandomLUT() {
                         return new VectorLUT();
                 case 1:
                         return new PolarLUT();
+                case 2:
+                        return new RandomVectorLUT();
                 default:
+                        println("WARNING: getRandomLUT defaulted. This is not supposed to happen.");
+                        println("choice == " + choice);
                         return new VectorLUT();
         }
 }
