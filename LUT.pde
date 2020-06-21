@@ -144,36 +144,49 @@ class RandomVectorLUT extends LUTbase implements LUTi {
         lower = int(random(-5, 5));
         upper = int(random(-5, 5));
         this.xRange = new Cartesian(lower, upper);
-        if(lower > upper) this.xRange.swap();
 
         lower = int(random(-5, 5));
         upper = int(random(-5, 5));
         this.yRange = new Cartesian(lower, upper);
-        if(lower > upper) this.yRange.swap();
     }
     // constructor 2, user-defined
     RandomVectorLUT(int lowerX, int upperX, int lowerY, int upperY){
         this.xRange = new Cartesian(lowerX, upperX);
-        if(lowerX > upperX) this.xRange.swap();
         this.yRange = new Cartesian(lowerY, upperY);
-        if(lowerY > upperY) this.yRange.swap();
+    }
+
+    private int getRandomInRange(Cartesian range){
+        // corrects for if lower > upper, and for the rounding of casting random to int.
+        int lower, higher;
+
+        if range.x > range.y{
+            lower = range.y;
+            upper = range.x + 1;
+        } else {
+            lower = range.x;
+            upper = range.y + 1;
+        }
+
+        if(lower < 0) lower -= 1;
+
+        return int(random(lower, higher));
     }
 
     public void generate(PImage img) {
             int w = img.width;
             int h = img.height;
             this.data = new int[w*h];
-            println("psst");
             for(int i = 0; i < w*h; i++){
 
                 Cartesian c = IndexToCartesian(img, i);
-                int x = int(random(this.xRange.x, this.xRange.y));
-                int y = int(random(this.yRange.x, this.yRange.y));
+                int x = getRandomInRange(xRange);
+                int y = getRandomInRange(yRange);
                 Cartesian vec = new Cartesian(x,y);
                 c = c.add(vec);
                 c = GetCoordinateInBounds_bounce(img, c);
                 int j = CartesianToIndex(img, c);
                 this.data[i] = j;
+                //println("i: " + i + ", j: " + j + ", vec:" + vec);
             }
             this.generated = true;
     }
