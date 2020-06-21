@@ -25,10 +25,9 @@ public String toString() {
         return "(" + x + ", " + y + ")";
 }
 public Cartesian add(Cartesian that){
-    Cartesian result = new Cartesian();
-    result.x = this.x + that.x;
-    result.y = this.y + that.y;
-    return result;
+    int x = this.x + that.x;
+    int y = this.y + that.y;
+    return new Cartesian (x,y);
 }
 
 } // end class Cartesian
@@ -52,18 +51,16 @@ public String toString() {
 }
 
 Polar add(Polar that) {
-        Polar result = new Polar();
-        result.radius = this.radius + that.radius;
-        result.angle = this.angle + that.angle;
-        return result;
+        float radius = this.radius + that.radius;
+        float angle = this.angle + that.angle;
+        return new Polar(radius, angle);
 }
 } // end class Polar
 
 Cartesian PolarToCartesian(Polar c, Cartesian offset) {
-        Cartesian result = new Cartesian();
-        result.x = int(c.radius * cos(c.angle)) + offset.x;
-        result.y = int(c.radius * sin(c.angle)) + offset.y;
-        return result;
+        int x = int(c.radius * cos(c.angle)) + offset.x;
+        int y = int(c.radius * sin(c.angle)) + offset.y;
+        return new Cartesian(x, y);
 }
 
 Polar CartesianToPolar(Cartesian c, Cartesian offset) {
